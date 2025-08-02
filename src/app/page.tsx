@@ -1,15 +1,18 @@
-'use client';
+"use client";
 
 import Header from "@/components/common/Header";
 import React, { useReducer, useEffect, useState } from "react";
 import SearchForm from "@/components/SearchForm";
 import UserCard from "@/components/UserCard";
 
-const searchReducer = (state: string | null, action: { type: string; payload?: string }) => {
+const searchReducer = (
+  state: string | null,
+  action: { type: string; payload?: string }
+) => {
   switch (action.type) {
-    case 'SET_QUERY':
+    case "SET_QUERY":
       return action.payload || null;
-    case 'CLEAR_QUERY':
+    case "CLEAR_QUERY":
       return null;
     default:
       return state;
@@ -28,7 +31,9 @@ export default function Home() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`https://api.github.com/search/users?q=${query}`);
+        const res = await fetch(
+          `https://api.github.com/search/users?q=${query}`
+        );
         if (!res.ok) throw new Error("Failed to fetch users");
         const data = await res.json();
         setResults(data.items || []);
@@ -44,24 +49,48 @@ export default function Home() {
   }, [query]);
 
   const handleSearch = (input: string) => {
-    dispatch({ type: 'SET_QUERY', payload: input });
+    dispatch({ type: "SET_QUERY", payload: input });
   };
 
   return (
     <>
       <Header />
-      <div className="container mx-auto">
-        <SearchForm defaultValue={query || ""} onSearch={handleSearch} />
-        {loading && <p className="text-center text-gray-500">Searching GitHub users...</p>}
-        {error && <p className="text-center text-red-500">{error}</p>}
-        {results.length > 0 && (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {results.map((user) => (
-              <UserCard key={user.id} user={user} />
-            ))}
+      <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
+        <div className="container mx-auto text-center px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            GitHub User Finder
+          </h1>
+          <p className="text-lg md:text-xl mb-8">
+            Search for GitHub profiles instantly by username.
+          </p>
+          <div className="max-w-xl mx-auto">
+            <SearchForm defaultValue={query || ""} onSearch={handleSearch} />
           </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="container mx-auto px-4 py-12">
+        {loading && (
+          <p className="text-center text-gray-500 text-lg">
+            Searching GitHub users...
+          </p>
         )}
-      </div>
+        {error && <p className="text-center text-red-500 text-lg">{error}</p>}
+
+        {results.length > 0 && (
+          <>
+            <h2 className="text-2xl font-semibold text-center mb-8">
+              Search Results
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {results.map((user) => (
+                <UserCard key={user.id} user={user} />
+              ))}
+            </div>
+          </>
+        )}
+      </section>
     </>
   );
 }

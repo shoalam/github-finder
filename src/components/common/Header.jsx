@@ -20,14 +20,6 @@ export default function Header() {
             </svg>
             <h1 className="text-xl font-semibold">GitHub Finder</h1>
           </div>
-          <div>
-            <Link
-              href="/login"
-              className="border border-gray-300 px-4 py-2 px-4 rounded"
-            >
-              Login
-            </Link>
-          </div>
         </div>
       </div>
     </header>

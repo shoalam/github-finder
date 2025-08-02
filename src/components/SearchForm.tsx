@@ -19,13 +19,13 @@ export default function SearchForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-6">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 my-6">
       <input
         type="text"
         placeholder="Search GitHub username..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="w-full px-4 py-2 rounded border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        className="w-full px-4 py-2 rounded border border-gray-100 shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
       />
       <button
         type="submit"

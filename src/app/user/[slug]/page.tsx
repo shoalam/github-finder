@@ -48,11 +48,11 @@ export default async function UserDetails({ params }: { params: { slug: string }
         </div>
 
         <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4 border-b pb-2">📚 Public Repositories</h2>
+          <h2 className="text-xl font-semibold mb-4 border-b border-gray-300 pb-2">📚 Public Repositories</h2>
           {repos.length > 0 ? (
             <ul className="space-y-4">
               {repos.map((repo: any) => (
-                <li key={repo.id} className="p-4 border rounded-lg hover:bg-gray-50 transition">
+                <li key={repo.id} className="p-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
                   <a
                     href={repo.html_url}
                     target="_blank"
